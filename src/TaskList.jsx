@@ -3,117 +3,99 @@ import { CheckCircle2, Circle, Search, Filter, Rocket, Database, Palette, Messag
 
 const TaskList = () => {
   const [tasks, setTasks] = useState({
-    // FASE 1: Fundação Multi-Tenant
-    "database_migrations": [
-      { id: "org_migration", text: "Criar migration 'organizations'", completed: false, priority: "alta" },
-      { id: "chatbot_migration", text: "Criar migration 'chatbots'", completed: false, priority: "alta" },
-      { id: "conversation_migration", text: "Criar migration 'conversations'", completed: false, priority: "alta" },
-      { id: "message_migration", text: "Criar migration 'messages'", completed: false, priority: "alta" },
-      { id: "plan_migration", text: "Criar migration 'subscription_plans'", completed: false, priority: "média" }
-    ],
-    "models_relationships": [
-      { id: "org_model", text: "Criar model 'Organization' com relacionamentos", completed: false, priority: "alta" },
-      { id: "chatbot_model", text: "Criar model 'Chatbot' com relacionamentos", completed: false, priority: "alta" },
-      { id: "conversation_model", text: "Criar model 'Conversation' com relacionamentos", completed: false, priority: "alta" },
-      { id: "message_model", text: "Criar model 'Message' com relacionamentos", completed: false, priority: "média" },
-      { id: "plan_model", text: "Criar model 'SubscriptionPlan' com relacionamentos", completed: false, priority: "média" }
-    ],
-    "middleware_security": [
-      { id: "tenant_middleware", text: "Criar TenantMiddleware para isolamento", completed: false, priority: "crítica" },
-      { id: "org_policy", text: "Implementar OrganizationPolicy", completed: false, priority: "alta" },
-      { id: "configure_middleware", text: "Configurar middleware nas rotas", completed: false, priority: "alta" },
-      { id: "test_isolation", text: "Testar isolamento entre organizações", completed: false, priority: "alta" }
+    // ✅ JÁ FEITO - Base do Sistema
+    "system_foundation": [
+      { id: "auth_system", text: "Sistema de autenticação", completed: true, priority: "crítica" },
+      { id: "company_model", text: "Model Company", completed: true, priority: "alta" },
+      { id: "plan_model", text: "Model Plan", completed: true, priority: "alta" },
+      { id: "user_model", text: "Model User", completed: true, priority: "alta" },
+      { id: "company_plan_relation", text: "Relacionamento Company ↔ Plan", completed: true, priority: "alta" },
+      { id: "plans_crud", text: "CRUD Plans completo", completed: true, priority: "alta" },
+      { id: "admin_dashboard", text: "Dashboard admin estruturado", completed: true, priority: "alta" }
     ],
 
-    // FASE 2: Interface Administrativa
-    "admin_dashboard": [
-      { id: "admin_dashboard_page", text: "Criar página /admin/dashboard", completed: false, priority: "alta" },
-      { id: "admin_org_list", text: "Criar página /admin/organizations", completed: false, priority: "alta" },
-      { id: "admin_org_create", text: "Criar página /admin/organizations/create", completed: false, priority: "alta" },
-      { id: "admin_org_detail", text: "Criar página /admin/organizations/{id}", completed: false, priority: "média" },
-      { id: "admin_search_filters", text: "Implementar busca e filtros", completed: false, priority: "baixa" }
-    ],
-    "analytics_basic": [
-      { id: "chart_component", text: "Criar componente de gráficos", completed: false, priority: "média" },
-      { id: "org_counter", text: "Contador de organizações ativas", completed: false, priority: "baixa" },
-      { id: "chatbot_counter", text: "Contador de chatbots totais", completed: false, priority: "baixa" },
-      { id: "conversation_counter", text: "Contador de conversas do mês", completed: false, priority: "baixa" },
-      { id: "revenue_display", text: "Exibir receita mensal estimada", completed: false, priority: "baixa" }
-    ],
-    "crud_organizations": [
-      { id: "org_controller", text: "Controller Admin/OrganizationsController", completed: false, priority: "alta" },
-      { id: "org_validation", text: "Validação com VineJS", completed: false, priority: "alta" },
-      { id: "org_logo_upload", text: "Upload de logo da organização", completed: false, priority: "média" },
-      { id: "org_slug_generation", text: "Geração automática de slug", completed: false, priority: "média" },
-      { id: "org_soft_delete", text: "Soft delete para organizações", completed: false, priority: "baixa" }
+    // 🚧 EM ANDAMENTO - Completar Base
+    "complete_foundation": [
+      { id: "companies_crud_complete", text: "Completar CRUD Companies (show, edit, delete)", completed: false, priority: "alta" },
+      { id: "user_company_relation", text: "Relacionar User → Company (multi-tenancy)", completed: false, priority: "crítica" },
+      { id: "tenant_middleware", text: "Middleware para isolamento de dados", completed: false, priority: "crítica" },
+      { id: "company_users_management", text: "Gerenciar usuários por company", completed: false, priority: "alta" },
+      { id: "company_dashboard", text: "Dashboard específico da company", completed: false, priority: "alta" }
     ],
 
-    // FASE 3: Dashboard do Cliente
-    "client_dashboard": [
-      { id: "client_dashboard_page", text: "Criar página /client/dashboard", completed: false, priority: "alta" },
-      { id: "period_selector", text: "Seletor de período (7d, 30d, 90d)", completed: false, priority: "média" },
-      { id: "conversation_stats", text: "Estatísticas de conversas", completed: false, priority: "média" },
-      { id: "top_questions", text: "Top perguntas mais frequentes", completed: false, priority: "baixa" },
-      { id: "plan_status", text: "Status do plano atual", completed: false, priority: "baixa" }
+    // 🤖 CHATBOT CORE - Models & Database
+    "chatbot_models": [
+      { id: "chatbot_model", text: "Model Chatbot (company_id, name, config, status)", completed: false, priority: "crítica" },
+      { id: "conversation_model", text: "Model Conversation (chatbot_id, user_session, status)", completed: false, priority: "crítica" },
+      { id: "message_model", text: "Model Message (conversation_id, content, sender_type)", completed: false, priority: "crítica" },
+      { id: "chatbot_migration", text: "Migration chatbots table", completed: false, priority: "alta" },
+      { id: "conversation_migration", text: "Migration conversations table", completed: false, priority: "alta" },
+      { id: "message_migration", text: "Migration messages table", completed: false, priority: "alta" }
     ],
+
+    // 🎨 CHATBOT MANAGEMENT - Dashboard Cliente
     "chatbot_management": [
-      { id: "chatbot_list_page", text: "Página /client/chatbots", completed: false, priority: "alta" },
-      { id: "chatbot_create_page", text: "Página /client/chatbots/create", completed: false, priority: "alta" },
-      { id: "chatbot_edit_page", text: "Página /client/chatbots/{id}/edit", completed: false, priority: "alta" },
-      { id: "chatbot_toggle", text: "Toggle ativo/inativo", completed: false, priority: "média" },
-      { id: "chatbot_preview", text: "Preview em tempo real", completed: false, priority: "baixa" }
-    ],
-    "chatbot_config": [
-      { id: "basic_config_form", text: "Formulário configuração básica", completed: false, priority: "alta" },
-      { id: "personality_selector", text: "Seletor de personalidade", completed: false, priority: "média" },
-      { id: "color_config", text: "Configuração de cor primária", completed: false, priority: "baixa" },
-      { id: "avatar_upload", text: "Upload de avatar/logo", completed: false, priority: "baixa" },
-      { id: "welcome_message", text: "Mensagem de boas-vindas", completed: false, priority: "média" }
+      { id: "chatbots_list_page", text: "Página /chatbots - listar por company", completed: false, priority: "alta" },
+      { id: "chatbot_create_form", text: "Formulário criar novo chatbot", completed: false, priority: "alta" },
+      { id: "chatbot_edit_form", text: "Formulário editar chatbot", completed: false, priority: "alta" },
+      { id: "chatbot_config_basic", text: "Configurações básicas (nome, descrição)", completed: false, priority: "alta" },
+      { id: "chatbot_toggle_status", text: "Ativar/desativar chatbot", completed: false, priority: "média" },
+      { id: "chatbot_preview", text: "Preview do chatbot", completed: false, priority: "baixa" }
     ],
 
-    // FASE 4: Sistema de Conversas
-    "websocket_setup": [
-      { id: "websocket_config", text: "Configurar WebSocket no AdonisJS", completed: false, priority: "crítica" },
-      { id: "websocket_namespace", text: "Namespace por organização/chatbot", completed: false, priority: "alta" },
-      { id: "websocket_auth", text: "Autenticação para WebSocket", completed: false, priority: "alta" },
-      { id: "websocket_test", text: "Testar conexão e desconexão", completed: false, priority: "alta" }
-    ],
-    "chat_engine": [
-      { id: "conversation_service", text: "Criar ConversationService", completed: false, priority: "crítica" },
-      { id: "new_conversation", text: "Início de nova conversa", completed: false, priority: "alta" },
-      { id: "send_messages", text: "Envio de mensagens", completed: false, priority: "alta" },
-      { id: "ai_integration", text: "Integrar com API de IA", completed: false, priority: "crítica" },
-      { id: "fallback_system", text: "Sistema de fallback", completed: false, priority: "média" }
-    ],
-    "chat_widget": [
-      { id: "react_widget", text: "Componente React para widget", completed: false, priority: "alta" },
-      { id: "responsive_interface", text: "Interface responsiva", completed: false, priority: "alta" },
-      { id: "typing_animations", text: "Animações de digitação", completed: false, priority: "baixa" },
-      { id: "widget_positioning", text: "Configurar posicionamento", completed: false, priority: "média" },
-      { id: "embed_code", text: "Gerar código de incorporação", completed: false, priority: "média" }
+    // 💬 CHAT SYSTEM - Core do Produto
+    "chat_system": [
+      { id: "websocket_setup", text: "Configurar WebSocket/Socket.io", completed: false, priority: "crítica" },
+      { id: "conversation_service", text: "Service para gerenciar conversas", completed: false, priority: "crítica" },
+      { id: "message_service", text: "Service para enviar/receber mensagens", completed: false, priority: "crítica" },
+      { id: "ai_integration", text: "Integração com OpenAI/Claude API", completed: false, priority: "crítica" },
+      { id: "chat_widget_component", text: "Componente React do chat widget", completed: false, priority: "alta" },
+      { id: "embed_code_generator", text: "Gerador de código embed", completed: false, priority: "média" }
     ],
 
-    // FASE 5: Features Essenciais
-    "advanced_analytics": [
-      { id: "chatbot_analytics", text: "Analytics para cada chatbot", completed: false, priority: "média" },
-      { id: "conversation_charts", text: "Gráfico conversas por período", completed: false, priority: "média" },
-      { id: "resolution_rate", text: "Taxa de resolução", completed: false, priority: "baixa" },
-      { id: "response_time", text: "Tempo médio de resposta", completed: false, priority: "baixa" },
-      { id: "export_reports", text: "Exportação de relatórios", completed: false, priority: "baixa" }
+    // 📊 ANALYTICS & REPORTS
+    "analytics_reports": [
+      { id: "conversation_analytics", text: "Analytics de conversas por chatbot", completed: false, priority: "média" },
+      { id: "message_statistics", text: "Estatísticas de mensagens", completed: false, priority: "média" },
+      { id: "chatbot_performance", text: "Performance dos chatbots", completed: false, priority: "baixa" },
+      { id: "export_conversations", text: "Exportar histórico de conversas", completed: false, priority: "baixa" },
+      { id: "real_time_dashboard", text: "Dashboard tempo real", completed: false, priority: "baixa" }
     ],
-    "billing_system": [
-      { id: "payment_integration", text: "Integração Stripe/Mercado Pago", completed: false, priority: "alta" },
-      { id: "pricing_page", text: "Página de planos e preços", completed: false, priority: "alta" },
-      { id: "subscription_checkout", text: "Checkout de assinatura", completed: false, priority: "alta" },
-      { id: "billing_management", text: "Gerenciamento de cobrança", completed: false, priority: "média" },
-      { id: "plan_limits", text: "Controle de limites por plano", completed: false, priority: "alta" }
+
+    // 🔧 ADVANCED FEATURES
+    "advanced_features": [
+      { id: "chatbot_personality", text: "Configurar personalidade do chatbot", completed: false, priority: "baixa" },
+      { id: "custom_prompts", text: "Prompts customizados por chatbot", completed: false, priority: "baixa" },
+      { id: "fallback_to_human", text: "Fallback para atendimento humano", completed: false, priority: "média" },
+      { id: "conversation_context", text: "Manter contexto da conversa", completed: false, priority: "média" },
+      { id: "multiple_languages", text: "Suporte múltiplos idiomas", completed: false, priority: "baixa" }
     ],
-    "basic_integrations": [
-      { id: "webhook_receiver", text: "Webhook para mensagens externas", completed: false, priority: "média" },
-      { id: "rest_api", text: "API REST para terceiros", completed: false, priority: "média" },
-      { id: "whatsapp_integration", text: "Integração WhatsApp Business", completed: false, priority: "baixa" },
-      { id: "api_documentation", text: "Documentação da API", completed: false, priority: "baixa" },
-      { id: "rate_limiting", text: "Rate limiting nas APIs", completed: false, priority: "média" }
+
+    // 🔗 INTEGRATIONS
+    "integrations": [
+      { id: "whatsapp_webhook", text: "Webhook WhatsApp Business", completed: false, priority: "baixa" },
+      { id: "telegram_integration", text: "Integração Telegram", completed: false, priority: "baixa" },
+      { id: "api_endpoints", text: "API REST para integrações", completed: false, priority: "média" },
+      { id: "webhook_system", text: "Sistema de webhooks customizados", completed: false, priority: "baixa" },
+      { id: "api_documentation", text: "Documentação da API", completed: false, priority: "baixa" }
+    ],
+
+    // 💳 BILLING & LIMITS
+    "billing_limits": [
+      { id: "plan_limits_enforcement", text: "Enforçar limites dos planos", completed: false, priority: "alta" },
+      { id: "usage_tracking", text: "Tracking de uso (mensagens/mês)", completed: false, priority: "alta" },
+      { id: "billing_integration", text: "Integração Stripe/Mercado Pago", completed: false, priority: "média" },
+      { id: "subscription_management", text: "Gerenciar assinaturas", completed: false, priority: "média" },
+      { id: "usage_alerts", text: "Alertas de limite de uso", completed: false, priority: "baixa" }
+    ],
+
+    // 🚀 DEPLOYMENT & PERFORMANCE
+    "deployment_performance": [
+      { id: "environment_config", text: "Configurar envs para produção", completed: false, priority: "alta" },
+      { id: "database_optimization", text: "Otimizar queries e indexes", completed: false, priority: "média" },
+      { id: "caching_strategy", text: "Implementar cache (Redis)", completed: false, priority: "baixa" },
+      { id: "error_monitoring", text: "Monitoramento de erros", completed: false, priority: "baixa" },
+      { id: "performance_monitoring", text: "Monitoramento de performance", completed: false, priority: "baixa" }
     ]
   });
 
@@ -122,21 +104,16 @@ const TaskList = () => {
   const [selectedPriority, setSelectedPriority] = useState('all');
 
   const phases = {
-    database_migrations: { name: "Database & Migrations", icon: Database, color: "bg-blue-500" },
-    models_relationships: { name: "Models & Relationships", icon: Database, color: "bg-blue-600" },
-    middleware_security: { name: "Middleware & Security", icon: Zap, color: "bg-red-500" },
-    admin_dashboard: { name: "Dashboard Admin", icon: Palette, color: "bg-purple-500" },
-    analytics_basic: { name: "Analytics Básico", icon: Target, color: "bg-green-500" },
-    crud_organizations: { name: "CRUD Organizações", icon: Palette, color: "bg-purple-600" },
-    client_dashboard: { name: "Dashboard Cliente", icon: Palette, color: "bg-indigo-500" },
-    chatbot_management: { name: "Gestão de Chatbots", icon: MessageSquare, color: "bg-cyan-500" },
-    chatbot_config: { name: "Config. Chatbot", icon: MessageSquare, color: "bg-cyan-600" },
-    websocket_setup: { name: "WebSocket Setup", icon: Zap, color: "bg-orange-500" },
-    chat_engine: { name: "Chat Engine", icon: MessageSquare, color: "bg-teal-500" },
-    chat_widget: { name: "Chat Widget", icon: MessageSquare, color: "bg-teal-600" },
-    advanced_analytics: { name: "Analytics Avançado", icon: Target, color: "bg-emerald-500" },
-    billing_system: { name: "Sistema de Billing", icon: Rocket, color: "bg-yellow-500" },
-    basic_integrations: { name: "Integrações Básicas", icon: Gift, color: "bg-pink-500" }
+    system_foundation: { name: "✅ Base do Sistema (PRONTO)", icon: CheckCircle2, color: "bg-green-500" },
+    complete_foundation: { name: "🚧 Completar Fundação", icon: Database, color: "bg-orange-500" },
+    chatbot_models: { name: "🤖 Models Chatbot", icon: Database, color: "bg-blue-500" },
+    chatbot_management: { name: "🎨 Gestão de Chatbots", icon: Palette, color: "bg-purple-500" },
+    chat_system: { name: "💬 Sistema de Chat", icon: MessageSquare, color: "bg-teal-500" },
+    analytics_reports: { name: "📊 Analytics & Reports", icon: Target, color: "bg-emerald-500" },
+    advanced_features: { name: "🔧 Features Avançadas", icon: Zap, color: "bg-indigo-500" },
+    integrations: { name: "🔗 Integrações", icon: Gift, color: "bg-pink-500" },
+    billing_limits: { name: "💳 Billing & Limites", icon: Rocket, color: "bg-yellow-500" },
+    deployment_performance: { name: "🚀 Deploy & Performance", icon: Rocket, color: "bg-red-500" }
   };
 
   const priorityColors = {
@@ -187,6 +164,9 @@ const TaskList = () => {
   };
 
   const overallProgress = getOverallProgress();
+  const nextPriorityTasks = Object.values(tasks).flat()
+    .filter(task => !task.completed && (task.priority === 'crítica' || task.priority === 'alta'))
+    .slice(0, 5);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 p-6">
@@ -198,8 +178,8 @@ const TaskList = () => {
               <Rocket className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-slate-900">Plataforma de Chatbots SaaS</h1>
-              <p className="text-slate-600">Acompanhe o progresso do desenvolvimento</p>
+              <h1 className="text-3xl font-bold text-slate-900">Chatbot SaaS Platform</h1>
+              <p className="text-slate-600">Progresso baseado no código atual</p>
             </div>
           </div>
 
@@ -218,6 +198,24 @@ const TaskList = () => {
             <p className="text-sm text-slate-600">
               {overallProgress.completed} de {overallProgress.total} tarefas concluídas
             </p>
+          </div>
+
+          {/* Next Priority Tasks */}
+          <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 mb-6">
+            <h3 className="text-lg font-semibold text-slate-900 mb-4">🎯 Próximas Tarefas Prioritárias</h3>
+            <div className="space-y-2">
+              {nextPriorityTasks.map((task, index) => (
+                <div key={task.id} className="flex items-center gap-3 p-3 bg-slate-50 rounded-lg">
+                  <span className="flex-shrink-0 w-6 h-6 bg-blue-500 text-white rounded-full flex items-center justify-center text-sm font-medium">
+                    {index + 1}
+                  </span>
+                  <span className="text-slate-900 font-medium">{task.text}</span>
+                  <span className={`ml-auto px-2 py-1 rounded-full text-xs font-medium ${priorityColors[task.priority]}`}>
+                    {task.priority}
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Filters */}
@@ -341,7 +339,7 @@ const TaskList = () => {
         {/* Footer */}
         <div className="mt-12 text-center">
           <p className="text-slate-500 text-sm">
-            🚀 Vamos transformar essa ideia em realidade! Cada task concluída nos aproxima do lançamento.
+            🎯 Baseado no código atual - foque nas tarefas críticas para ter o MVP funcionando!
           </p>
         </div>
       </div>
